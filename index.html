@@ -1,1345 +1,1809 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vastuvidyā — The Sacred Architecture of Ancient India</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+Devanagari:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --saffron: #C8540A;
-    --deep-saffron: #A03E00;
-    --gold: #C5933A;
-    --gold-light: #E8C06A;
-    --ivory: #F5EDD8;
-    --cream: #FAF4E6;
-    --dark-brown: #2A1A08;
-    --mid-brown: #4A2E12;
-    --warm-black: #1A0E04;
-    --terracotta: #B85C38;
-    --deep-red: #7A1C10;
-    --accent-teal: #2E6E6A;
-    --stone: #8C7355;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background-color: var(--warm-black);
-    color: var(--ivory);
-    font-family: 'Crimson Pro', Georgia, serif;
-    font-size: 18px;
-    line-height: 1.75;
-    overflow-x: hidden;
-  }
-
-  /* ── TEXTURE OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.5;
-  }
-
-  /* ── DECORATIVE SVG BORDERS ── */
-  .border-top-deco {
-    width: 100%;
-    overflow: hidden;
-    line-height: 0;
-  }
-
-  /* ── MANDALA HERO ── */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 80px 20px 60px;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200, 84, 10, 0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 40% at 50% 80%, rgba(197, 147, 58, 0.10) 0%, transparent 60%),
-      linear-gradient(180deg, #120800 0%, #1e0f04 50%, #120800 100%);
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-      0deg, transparent, transparent 40px,
-      rgba(197, 147, 58, 0.03) 40px, rgba(197, 147, 58, 0.03) 41px
-    ),
-    repeating-linear-gradient(
-      90deg, transparent, transparent 40px,
-      rgba(197, 147, 58, 0.03) 40px, rgba(197, 147, 58, 0.03) 41px
-    );
-    pointer-events: none;
-  }
-
-  .mandala-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(700px, 90vw);
-    height: min(700px, 90vw);
-    opacity: 0.12;
-    animation: rotate-slow 80s linear infinite;
-  }
-
-  @keyframes rotate-slow { to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-  .mandala-inner {
-    position: absolute;
-    inset: 0;
-    animation: rotate-slow 50s linear infinite reverse;
-    opacity: 0.7;
-  }
-
-  .hero-kala-tag {
-    font-family: 'Noto Serif Devanagari', serif;
-    font-size: 13px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold-light);
-    opacity: 0.85;
-    margin-bottom: 24px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-kala-tag::before, .hero-kala-tag::after {
-    content: '❖';
-    margin: 0 12px;
-    color: var(--saffron);
-    font-size: 10px;
-  }
-
-  .hero-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: clamp(2.8rem, 7vw, 6rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: 2px;
-    color: var(--gold-light);
-    text-shadow:
-      0 0 60px rgba(197, 147, 58, 0.6),
-      0 0 120px rgba(200, 84, 10, 0.3),
-      2px 2px 0px rgba(42, 26, 8, 0.8);
-    position: relative;
-    z-index: 1;
-    animation: fade-up 1.2s ease both;
-  }
-
-  .hero-title span {
-    display: block;
-    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-    font-family: 'Noto Serif Devanagari', serif;
-    font-weight: 300;
-    letter-spacing: 8px;
-    color: var(--saffron);
-    margin-bottom: 10px;
-    text-shadow: 0 0 30px rgba(200, 84, 10, 0.5);
-  }
-
-  .hero-subtitle {
-    font-family: 'Crimson Pro', serif;
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    font-style: italic;
-    color: var(--ivory);
-    opacity: 0.75;
-    max-width: 600px;
-    margin: 24px auto 0;
-    position: relative;
-    z-index: 1;
-    animation: fade-up 1.4s ease both;
-  }
-
-  .hero-divider {
-    margin: 36px auto;
-    width: 200px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), var(--saffron), var(--gold), transparent);
-    position: relative;
-    z-index: 1;
-  }
-
-  .hero-divider::before {
-    content: '✦';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: var(--warm-black);
-    padding: 0 10px;
-    color: var(--gold);
-    font-size: 12px;
-  }
-
-  @keyframes fade-up {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── BORDER PATTERN ── */
-  .border-band {
-    width: 100%;
-    height: 24px;
-    background:
-      repeating-linear-gradient(90deg,
-        var(--saffron) 0px, var(--saffron) 8px,
-        var(--gold) 8px, var(--gold) 16px,
-        var(--deep-red) 16px, var(--deep-red) 24px,
-        var(--gold) 24px, var(--gold) 32px
-      );
-    opacity: 0.7;
-  }
-
-  .border-band-thin {
-    width: 100%;
-    height: 6px;
-    background: linear-gradient(90deg, var(--deep-red), var(--saffron), var(--gold), var(--saffron), var(--deep-red));
-    opacity: 0.6;
-  }
-
-  /* ── MAIN CONTENT ── */
-  main {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ── INTRO SECTION ── */
-  .intro-section {
-    background: linear-gradient(180deg, #1e0f04 0%, #231208 100%);
-    padding: 80px 20px;
-    position: relative;
-  }
-
-  .intro-section::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  }
-
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  .container-wide {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 30px;
-  }
-
-  .section-eyebrow {
-    font-family: 'Noto Serif Devanagari', serif;
-    font-size: 11px;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--saffron);
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .section-eyebrow::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, var(--saffron), transparent);
-    opacity: 0.4;
-  }
-
-  .section-heading {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: clamp(1.5rem, 4vw, 2.6rem);
-    color: var(--gold-light);
-    line-height: 1.25;
-    margin-bottom: 32px;
-    text-shadow: 0 2px 20px rgba(197, 147, 58, 0.3);
-  }
-
-  .drop-cap::first-letter {
-    float: left;
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 5em;
-    line-height: 0.75;
-    padding: 0.1em 0.12em 0 0;
-    color: var(--saffron);
-    text-shadow: 2px 2px 0 var(--deep-red), 0 0 30px rgba(200, 84, 10, 0.5);
-  }
-
-  p { margin-bottom: 1.2em; color: #e8dcc8; }
-
-  /* ── IMAGE PLACEHOLDER ── */
-  .img-placeholder {
-    width: 100%;
-    background: linear-gradient(135deg, #2a1508 0%, #1a0d04 50%, #2e1a0a 100%);
-    border: 1px solid rgba(197, 147, 58, 0.25);
-    border-radius: 2px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 14px;
-    color: var(--gold);
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-align: center;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .img-placeholder::before {
-    content: '';
-    position: absolute;
-    inset: 8px;
-    border: 1px dashed rgba(197, 147, 58, 0.2);
-    pointer-events: none;
-  }
-
-  .img-placeholder .corner {
-    position: absolute;
-    width: 20px; height: 20px;
-    border-color: var(--gold);
-    border-style: solid;
-    opacity: 0.5;
-  }
-  .img-placeholder .corner.tl { top: 4px; left: 4px; border-width: 2px 0 0 2px; }
-  .img-placeholder .corner.tr { top: 4px; right: 4px; border-width: 2px 2px 0 0; }
-  .img-placeholder .corner.bl { bottom: 4px; left: 4px; border-width: 0 0 2px 2px; }
-  .img-placeholder .corner.br { bottom: 4px; right: 4px; border-width: 0 2px 2px 0; }
-
-  .img-placeholder svg { opacity: 0.3; }
-
-  .img-placeholder-label {
-    color: var(--gold);
-    opacity: 0.6;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-family: 'Crimson Pro', serif;
-    font-style: italic;
-  }
-
-  /* ── GRID LAYOUTS ── */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    align-items: start;
-    margin: 50px 0;
-  }
-
-  .two-col-rev { direction: rtl; }
-  .two-col-rev > * { direction: ltr; }
-
-  @media (max-width: 720px) {
-    .two-col { grid-template-columns: 1fr; gap: 30px; }
-  }
-
-  /* ── PRINCIPLES SECTION ── */
-  .principles-section {
-    background:
-      radial-gradient(ellipse 100% 50% at 50% 50%, rgba(200, 84, 10, 0.08) 0%, transparent 70%),
-      linear-gradient(180deg, #231208 0%, #1a0c04 100%);
-    padding: 90px 20px;
-    position: relative;
-  }
-
-  .principles-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-top: 50px;
-  }
-
-  @media (max-width: 900px) {
-    .principles-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 560px) {
-    .principles-grid { grid-template-columns: 1fr; }
-  }
-
-  .principle-card {
-    background: linear-gradient(145deg, rgba(42, 26, 8, 0.9), rgba(26, 14, 4, 0.95));
-    border: 1px solid rgba(197, 147, 58, 0.18);
-    padding: 32px 28px;
-    position: relative;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-  }
-
-  .principle-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(197, 147, 58, 0.4);
-  }
-
-  .principle-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--saffron), var(--gold));
-  }
-
-  .principle-num {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 2.5rem;
-    color: var(--saffron);
-    opacity: 0.25;
-    line-height: 1;
-    margin-bottom: 10px;
-  }
-
-  .principle-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.9rem;
-    color: var(--gold-light);
-    margin-bottom: 14px;
-    letter-spacing: 1px;
-  }
-
-  .principle-subtitle {
-    font-family: 'Noto Serif Devanagari', serif;
-    font-size: 0.75rem;
-    color: var(--saffron);
-    letter-spacing: 2px;
-    margin-bottom: 14px;
-    opacity: 0.8;
-  }
-
-  .principle-card p {
-    font-size: 0.92rem;
-    line-height: 1.65;
-    color: #c8baa8;
-    margin: 0;
-  }
-
-  /* ── QUOTE BAND ── */
-  .quote-band {
-    background: linear-gradient(90deg, var(--deep-red) 0%, #5a1208 50%, var(--deep-red) 100%);
-    padding: 50px 40px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .quote-band::before {
-    content: '❝';
-    position: absolute;
-    font-size: 200px;
-    color: rgba(255, 255, 255, 0.04);
-    font-family: Georgia, serif;
-    line-height: 1;
-    top: -20px;
-    left: 30px;
-  }
-
-  .quote-band blockquote {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    color: var(--gold-light);
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.7;
-    position: relative;
-    z-index: 1;
-  }
-
-  .quote-band cite {
-    display: block;
-    margin-top: 16px;
-    font-family: 'Crimson Pro', serif;
-    font-style: italic;
-    font-size: 0.95rem;
-    color: var(--ivory);
-    opacity: 0.65;
-    letter-spacing: 2px;
-  }
-
-  /* ── STRUCTURES SECTION ── */
-  .structures-section {
-    padding: 90px 20px;
-    background: linear-gradient(180deg, #1a0c04 0%, #231208 100%);
-  }
-
-  .structures-tabs {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid rgba(197, 147, 58, 0.2);
-    margin-bottom: 50px;
-    overflow-x: auto;
-  }
-
-  .tab-btn {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.7rem;
-    letter-spacing: 1.5px;
-    padding: 16px 28px;
-    background: transparent;
-    border: none;
-    color: var(--stone);
-    cursor: pointer;
-    position: relative;
-    white-space: nowrap;
-    transition: color 0.3s;
-  }
-
-  .tab-btn.active {
-    color: var(--gold-light);
-  }
-
-  .tab-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: -1px; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--saffron), var(--gold));
-  }
-
-  .tab-btn:hover { color: var(--ivory); }
-
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  /* ── ELEMENTS GRID ── */
-  .elements-section {
-    background:
-      radial-gradient(ellipse 80% 60% at 30% 50%, rgba(46, 110, 106, 0.06) 0%, transparent 60%),
-      linear-gradient(180deg, #231208 0%, #1a0c04 100%);
-    padding: 90px 20px;
-  }
-
-  .elements-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px;
-    margin-top: 50px;
-  }
-
-  .element-item {
-    padding: 30px;
-    border-left: 2px solid var(--saffron);
-    background: rgba(42, 26, 8, 0.5);
-    position: relative;
-  }
-
-  .element-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, var(--saffron), transparent);
-    opacity: 0.2;
-  }
-
-  .element-icon {
-    font-size: 2rem;
-    margin-bottom: 14px;
-    display: block;
-  }
-
-  .element-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.85rem;
-    color: var(--gold-light);
-    margin-bottom: 8px;
-    letter-spacing: 1px;
-  }
-
-  .element-skt {
-    font-family: 'Noto Serif Devanagari', serif;
-    font-size: 0.7rem;
-    color: var(--saffron);
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-    display: block;
-    opacity: 0.8;
-  }
-
-  .element-item p {
-    font-size: 0.9rem;
-    color: #b8aa98;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  /* ── STHAPATI SECTION ── */
-  .sthapati-section {
-    padding: 90px 20px;
-    background: linear-gradient(180deg, #1a0c04 0%, #0e0703 100%);
-    position: relative;
-  }
-
-  .sthapati-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      repeating-linear-gradient(45deg,
-        transparent 0px, transparent 20px,
-        rgba(197, 147, 58, 0.015) 20px, rgba(197, 147, 58, 0.015) 21px
-      );
-  }
-
-  .materials-list {
-    list-style: none;
-    margin-top: 30px;
-  }
-
-  .materials-list li {
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(197, 147, 58, 0.1);
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    position: relative;
-  }
-
-  .mat-bullet {
-    min-width: 36px;
-    height: 36px;
-    background: linear-gradient(135deg, var(--saffron), var(--deep-red));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.75rem;
-    color: var(--ivory);
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-
-  .mat-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.85rem;
-    color: var(--gold-light);
-    margin-bottom: 6px;
-    letter-spacing: 1px;
-  }
-
-  .mat-skt {
-    font-family: 'Noto Serif Devanagari', serif;
-    font-size: 0.7rem;
-    color: var(--saffron);
-    opacity: 0.8;
-    display: block;
-    margin-bottom: 8px;
-    letter-spacing: 2px;
-  }
-
-  .mat-desc {
-    font-size: 0.9rem;
-    color: #b0a290;
-    margin: 0;
-    line-height: 1.6;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--warm-black);
-    padding: 60px 20px 40px;
-    text-align: center;
-    border-top: 1px solid rgba(197, 147, 58, 0.15);
-  }
-
-  .footer-mandala {
-    width: 100px;
-    margin: 0 auto 30px;
-    opacity: 0.5;
-    animation: rotate-slow 60s linear infinite;
-  }
-
-  .footer-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.1rem;
-    color: var(--gold);
-    letter-spacing: 3px;
-    margin-bottom: 12px;
-  }
-
-  .footer-sub {
-    font-family: 'Crimson Pro', serif;
-    font-style: italic;
-    color: var(--stone);
-    font-size: 0.95rem;
-    margin-bottom: 30px;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
-  }
-
-  .footer-links a {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.65rem;
-    letter-spacing: 2px;
-    color: var(--stone);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .footer-links a:hover { color: var(--gold-light); }
-
-  .footer-copy {
-    font-size: 0.8rem;
-    color: var(--stone);
-    opacity: 0.5;
-    letter-spacing: 1px;
-  }
-
-  /* ── ORNAMENTAL DIVIDER ── */
-  .ornament {
-    text-align: center;
-    color: var(--gold);
-    font-size: 1rem;
-    letter-spacing: 16px;
-    opacity: 0.35;
-    margin: 50px 0;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 16px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(10, 5, 2, 0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(197, 147, 58, 0.15);
-    transition: background 0.3s;
-  }
-
-  .nav-logo {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 0.9rem;
-    color: var(--gold-light);
-    letter-spacing: 2px;
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-family: 'Crimson Pro', serif;
-    font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--stone);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover { color: var(--gold-light); }
-
-  @media (max-width: 680px) {
-    .nav-links { display: none; }
-    nav { padding: 16px 24px; }
-  }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: none;
-  }
-
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-
-  /* ── INLINE HIGHLIGHT ── */
-  .highlight {
-    color: var(--gold-light);
-    font-style: italic;
-  }
-
-  strong { color: var(--gold-light); font-weight: 600; }
-
-  /* ── VASTU MANDALA DIAGRAM ── */
-  .mandala-diagram-wrap {
-    max-width: 440px;
-    margin: 0 auto;
-  }
-
-  /* image placeholder heights */
-  .h-200 { height: 200px; }
-  .h-280 { height: 280px; }
-  .h-360 { height: 360px; }
-  .h-320 { height: 320px; }
-  .h-400 { height: 400px; }
-</style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo">Vastuvidyā</a>
-  <ul class="nav-links">
-    <li><a href="#origins">Origins</a></li>
-    <li><a href="#principles">Principles</a></li>
-    <li><a href="#structures">Structures</a></li>
-    <li><a href="#elements">Elements</a></li>
-    <li><a href="#sthapati">Sthapati</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<header class="hero">
-  <!-- Mandala BG SVG -->
-  <div class="mandala-container">
-    <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#C5933A" stroke-width="0.8">
-      <circle cx="300" cy="300" r="280"/>
-      <circle cx="300" cy="300" r="240"/>
-      <circle cx="300" cy="300" r="200"/>
-      <circle cx="300" cy="300" r="160"/>
-      <circle cx="300" cy="300" r="120"/>
-      <circle cx="300" cy="300" r="80"/>
-      <circle cx="300" cy="300" r="40"/>
-      <!-- 8 petals outer -->
-      <g transform="translate(300,300)">
-        <g transform="rotate(0)"><ellipse cx="0" cy="-220" rx="18" ry="40"/></g>
-        <g transform="rotate(45)"><ellipse cx="0" cy="-220" rx="18" ry="40"/></g>
-        <g transform="rotate(90)"><ellipse cx="0" cy="-220" rx="18" ry="40"/></g>
-        <g transform="rotate(135)"><ellipse cx="0" cy="-220" rx="18" ry="40"/></g>
-        <g transform="rotate(180)"><ellipse cx="0" cy="-220" rx="18" ry="40"/></g>
-        <g transform="rotate(225)"><ellipse cx="0" cy="-220" rx="18" ry="40"/></g>
-        <g transform="rotate(270)"><ellipse cx="0" cy="-220" rx="18" ry="40"/></g>
-        <g transform="rotate(315)"><ellipse cx="0" cy="-220" rx="18" ry="40"/></g>
-      </g>
-      <!-- 16 petals mid -->
-      <g transform="translate(300,300)">
-        <g transform="rotate(0)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(22.5)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(45)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(67.5)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(90)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(112.5)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(135)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(157.5)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(180)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(202.5)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(225)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(247.5)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(270)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(292.5)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(315)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-        <g transform="rotate(337.5)"><ellipse cx="0" cy="-170" rx="12" ry="28"/></g>
-      </g>
-      <!-- radial lines -->
-      <g transform="translate(300,300)" stroke-width="0.4" opacity="0.5">
-        <line x1="0" y1="-280" x2="0" y2="280"/>
-        <line x1="-280" y1="0" x2="280" y2="0"/>
-        <line transform="rotate(45)" x1="0" y1="-280" x2="0" y2="280"/>
-        <line transform="rotate(135)" x1="0" y1="-280" x2="0" y2="280"/>
-      </g>
-      <!-- star polygon -->
-      <polygon transform="translate(300,300)" points="0,-140 32.7,-100 119.5,-100 51.3,-38.7 78.2,50 0,0 -78.2,50 -51.3,-38.7 -119.5,-100 -32.7,-100" stroke-width="0.6" opacity="0.6"/>
-    </svg>
-    <div class="mandala-inner">
-      <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#C8540A" stroke-width="0.5" opacity="0.8">
-        <g transform="translate(300,300)">
-          <g transform="rotate(22.5)">
-            <g transform="rotate(0)"><rect x="-8" y="-125" width="16" height="30" rx="4"/></g>
-            <g transform="rotate(45)"><rect x="-8" y="-125" width="16" height="30" rx="4"/></g>
-            <g transform="rotate(90)"><rect x="-8" y="-125" width="16" height="30" rx="4"/></g>
-            <g transform="rotate(135)"><rect x="-8" y="-125" width="16" height="30" rx="4"/></g>
-            <g transform="rotate(180)"><rect x="-8" y="-125" width="16" height="30" rx="4"/></g>
-            <g transform="rotate(225)"><rect x="-8" y="-125" width="16" height="30" rx="4"/></g>
-            <g transform="rotate(270)"><rect x="-8" y="-125" width="16" height="30" rx="4"/></g>
-            <g transform="rotate(315)"><rect x="-8" y="-125" width="16" height="30" rx="4"/></g>
-          </g>
-        </g>
-        <rect x="200" y="200" width="200" height="200" stroke-width="0.6"/>
-        <rect x="220" y="220" width="160" height="160" stroke-width="0.4" transform="translate(300,300) rotate(45) translate(-300,-300)"/>
-      </svg>
-    </div>
-  </div>
-
-  <div class="hero-kala-tag">Chatushashti Kalas — The 64 Arts</div>
-  <h1 class="hero-title">
-    <span>वास्तुविद्या</span>
-    Vastuvidyā
-  </h1>
-  <div class="hero-divider"></div>
-  <p class="hero-subtitle">The Sacred Art & Science of Architecture in Ancient India — a profound fusion of mathematical precision, cosmic harmony, and divine purpose.</p>
-</header>
-
-<div class="border-band"></div>
-
-<main>
-
-<!-- INTRO / ORIGINS -->
-<section class="intro-section" id="origins">
-  <div class="container">
-    <div class="section-eyebrow">Origins & Definition</div>
-    <h2 class="section-heading">The Chatushashti Kalas</h2>
-
-    <div class="two-col reveal">
-      <div>
-        <p class="drop-cap">The <strong>Chatushashti Kalas</strong> — the 64 Arts — represent a comprehensive collection of skills and knowledge essential for holistic human development in ancient India. Originating from Vedic texts and first cataloged in the Mahabharata, these arts were later refined in works like Kautilya's <span class="highlight">Arthashastra</span> and the <span class="highlight">Kamasutra</span>.</p>
-        <p>Mastery of these arts allowed an individual to contribute to society while developing intelligence, creativity, and discipline. Among these, <strong>Vastuvidyā</strong> — the Art and Science of Architecture — stands as a profound fusion of mathematical precision, artistic expression, and astrological insights.</p>
-        <p>The term <em>Vastu</em> refers broadly to houses, buildings, grounds, and even infrastructure like bridges and lakes, while later Puranic texts extend it to encompass entire towns, temples, and palaces.</p>
-      </div>
-      <div>
-        <!-- IMAGE PLACEHOLDER: Manuscript page or ancient text illustration -->
-        <div class="img-placeholder h-360">
-          <div class="corner tl"></div><div class="corner tr"></div>
-          <div class="corner bl"></div><div class="corner br"></div>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 40V10a2 2 0 012-2h28a2 2 0 012 2v30" stroke="#C5933A" stroke-width="1.5"/>
-            <path d="M4 40h40" stroke="#C5933A" stroke-width="1.5"/>
-            <path d="M16 18h16M16 24h16M16 30h10" stroke="#C5933A" stroke-width="1" opacity="0.6"/>
-          </svg>
-          <div class="img-placeholder-label">Ancient Manuscript — Vedic Text Illustration</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="ornament">✦ ✦ ✦ ✦ ✦</div>
-
-    <div class="two-col two-col-rev reveal">
-      <div>
-        <!-- IMAGE PLACEHOLDER: Matsya avatar / Vishnu painting -->
-        <div class="img-placeholder h-360">
-          <div class="corner tl"></div><div class="corner tr"></div>
-          <div class="corner bl"></div><div class="corner br"></div>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="18" stroke="#C5933A" stroke-width="1.5"/>
-            <path d="M12 24c4-8 20-8 24 0" stroke="#C5933A" stroke-width="1.2" opacity="0.6"/>
-            <circle cx="24" cy="24" r="6" stroke="#C5933A" stroke-width="1"/>
-          </svg>
-          <div class="img-placeholder-label">Matsya Avatar — Lord Vishnu Imparting Vastuvidyā to Manu</div>
-        </div>
-      </div>
-      <div>
-        <div class="section-eyebrow">Divine Genesis</div>
-        <h2 class="section-heading" style="font-size:1.8rem;">Sacred Origins</h2>
-        <p>According to the <span class="highlight">Matsya Purana</span>, Vastuvidyā was imparted by Lord Vishnu in his Matsya avatar to Manu, the first human — establishing architecture as a divine gift entrusted to humanity.</p>
-        <p>The tradition is preserved in major texts such as the <strong>Manasara</strong>, which provides detailed guidance on site selection, strategic placement of features like doors and altars, and construction techniques to promote the well-being of occupants.</p>
-        <p>This sacred lineage of knowledge passed from divine origin through generations of <em>Sthapatis</em> — master architects — who were regarded not merely as craftsmen, but as intermediaries between the cosmic order and the material world.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="border-band-thin"></div>
-
-<!-- QUOTE BAND -->
-<div class="quote-band">
-  <blockquote>
-    "Architecture is not merely a technical activity but a righteous and purposeful design that serves society while reflecting cosmic order."
-    <cite>— Vastuvidyā, The Samanvaya Tradition</cite>
-  </blockquote>
-</div>
-
-<div class="border-band-thin"></div>
-
-<!-- PRINCIPLES -->
-<section class="principles-section" id="principles">
-  <div class="container-wide">
-    <div style="text-align:center; margin-bottom: 10px;">
-      <div class="section-eyebrow" style="justify-content:center;">Core Principles</div>
-      <h2 class="section-heading" style="text-align:center;">Harmonizing with the Cosmos</h2>
-      <p style="max-width:600px; margin: 0 auto; color:#b8aa98; font-style:italic;">At its heart, Vastuvidyā is the science of achieving harmony between human existence and the larger cosmos.</p>
-    </div>
-
-    <!-- Vastu Purusha Mandala Image -->
-    <div class="mandala-diagram-wrap reveal" style="margin-top: 50px; margin-bottom: 50px;">
-      <div class="img-placeholder h-400">
-        <div class="corner tl"></div><div class="corner tr"></div>
-        <div class="corner bl"></div><div class="corner br"></div>
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="5" y="5" width="50" height="50" stroke="#C5933A" stroke-width="1.2"/>
-          <rect x="20" y="5" width="20" height="20" stroke="#C5933A" stroke-width="0.8" opacity="0.7"/>
-          <rect x="20" y="35" width="20" height="20" stroke="#C5933A" stroke-width="0.8" opacity="0.7"/>
-          <rect x="5" y="20" width="20" height="20" stroke="#C5933A" stroke-width="0.8" opacity="0.7"/>
-          <rect x="35" y="20" width="20" height="20" stroke="#C5933A" stroke-width="0.8" opacity="0.7"/>
-          <rect x="20" y="20" width="20" height="20" stroke="#C5933A" stroke-width="1" fill="rgba(200,84,10,0.1)"/>
-          <line x1="5" y1="30" x2="55" y2="30" stroke="#C5933A" stroke-width="0.5" opacity="0.4"/>
-          <line x1="30" y1="5" x2="30" y2="55" stroke="#C5933A" stroke-width="0.5" opacity="0.4"/>
-        </svg>
-        <div class="img-placeholder-label">Vastu Purusha Mandala — The Sacred Cosmic Grid</div>
-      </div>
-    </div>
-
-    <div class="principles-grid">
-      <div class="principle-card reveal">
-        <div class="principle-num">01</div>
-        <div class="principle-subtitle">पञ्चमहाभूत</div>
-        <div class="principle-title">Panchamahabhuta</div>
-        <p>Every structure is designed to balance the five essential elements: <strong>Earth</strong> (Prithvi), <strong>Water</strong> (Jala), <strong>Air</strong> (Vayu), <strong>Fire</strong> (Agni), and <strong>Space</strong> (Akasha). This balance aligns the building with nature to optimize the health of its residents.</p>
-      </div>
-      <div class="principle-card reveal reveal-delay-1">
-        <div class="principle-num">02</div>
-        <div class="principle-subtitle">वास्तुपुरुषमण्डल</div>
-        <div class="principle-title">Vastu Purusha Mandala</div>
-        <p>This fundamental sacred grid maps a cosmic being onto the site. A key rule is the <strong>Brahmasthana</strong> — the central zone of the structure — which is kept open to allow energy and Space (Akasha) to circulate freely.</p>
-      </div>
-      <div class="principle-card reveal reveal-delay-2">
-        <div class="principle-num">03</div>
-        <div class="principle-subtitle">अष्टदिक्पाल</div>
-        <div class="principle-title">Ashtadikpāla</div>
-        <p>Eight directions govern different functions. The <strong>East</strong> is traditionally auspicious for entrances to capture sunrise and vitality, while the <strong>Southeast</strong> is the designated zone for Fire — the domain of kitchens and hearths.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STRUCTURES -->
-<section class="structures-section" id="structures">
-  <div class="container-wide">
-    <div class="section-eyebrow">Types of Structures</div>
-    <h2 class="section-heading">From Temples to Towns</h2>
-    <p style="max-width: 680px; color: #b8aa98; font-style: italic; margin-bottom: 40px;">Vastuvidyā was applied across various scales, from individual homes to entire urban landscapes.</p>
-
-    <div class="structures-tabs">
-      <button class="tab-btn active" onclick="switchTab(this,'tab-devalaya')">Devalaya</button>
-      <button class="tab-btn" onclick="switchTab(this,'tab-griha')">Griha</button>
-      <button class="tab-btn" onclick="switchTab(this,'tab-nagara')">Nagara Rachana</button>
-    </div>
-
-    <!-- DEVALAYA -->
-    <div class="tab-panel active" id="tab-devalaya">
-      <div class="two-col reveal">
-        <div>
-          <div class="section-eyebrow">देवालय</div>
-          <h3 class="section-heading" style="font-size:1.6rem;">Temple Architecture</h3>
-          <p>The highest expression of the art, temples utilized intricate carvings that served both aesthetic and scientific purposes, such as amplifying sound within the sanctum. Every dimension, every column, every doorway threshold was governed by sacred proportion.</p>
-          <p>The towering <strong>Shikhara</strong> and <strong>Vimana</strong> spires above the sanctum represent the soul's aspiration toward the divine — a mountain of stone reaching heavenward, echoing the sacred peaks of Meru.</p>
-        </div>
-        <div>
-          <!-- IMAGE PLACEHOLDER: Temple architecture, shikhara -->
-          <div class="img-placeholder h-360">
-            <div class="corner tl"></div><div class="corner tr"></div>
-            <div class="corner bl"></div><div class="corner br"></div>
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M25 5 L35 45 H15 Z" stroke="#C5933A" stroke-width="1"/>
-              <path d="M18 30 H32" stroke="#C5933A" stroke-width="0.8" opacity="0.6"/>
-              <path d="M20 35 H30" stroke="#C5933A" stroke-width="0.8" opacity="0.6"/>
-              <rect x="20" y="42" width="10" height="8" stroke="#C5933A" stroke-width="0.8"/>
-            </svg>
-            <div class="img-placeholder-label">Devalaya — Temple Shikhara & Sanctum</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- GRIHA -->
-    <div class="tab-panel" id="tab-griha">
-      <div class="two-col reveal">
-        <div>
-          <!-- IMAGE PLACEHOLDER: Traditional Indian home courtyard -->
-          <div class="img-placeholder h-360">
-            <div class="corner tl"></div><div class="corner tr"></div>
-            <div class="corner bl"></div><div class="corner br"></div>
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="5" y="20" width="40" height="28" stroke="#C5933A" stroke-width="1"/>
-              <path d="M5 20 L25 6 L45 20" stroke="#C5933A" stroke-width="1"/>
-              <rect x="20" y="32" width="10" height="16" stroke="#C5933A" stroke-width="0.8"/>
-              <rect x="8" y="24" width="8" height="8" stroke="#C5933A" stroke-width="0.7" opacity="0.6"/>
-              <rect x="34" y="24" width="8" height="8" stroke="#C5933A" stroke-width="0.7" opacity="0.6"/>
-            </svg>
-            <div class="img-placeholder-label">Griha — Traditional Indian Residential Architecture</div>
-          </div>
-        </div>
-        <div>
-          <div class="section-eyebrow">गृह</div>
-          <h3 class="section-heading" style="font-size:1.6rem;">Residential Design</h3>
-          <p>Traditional homes were designed to optimize natural light and ventilation, emphasizing symmetry and proportion. The central courtyard — the <em>Brahmasthana</em> of the home — served as both spiritual center and ventilation engine.</p>
-          <p>Every doorway faced an auspicious direction; the kitchen was placed southeast in honor of <strong>Agni</strong>; sleeping chambers aligned with the earth's magnetic flow. Architecture was an act of living liturgy.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- NAGARA -->
-    <div class="tab-panel" id="tab-nagara">
-      <div class="two-col reveal">
-        <div>
-          <div class="section-eyebrow">नगर रचना</div>
-          <h3 class="section-heading" style="font-size:1.6rem;">Town Planning</h3>
-          <p>The practice extended to advanced urban systems. Archaeological evidence from sites like <strong>Mohenjo-Daro</strong> and <strong>Dwaraka</strong> showcases early expertise in water systems, storage facilities, and landscaped gardens — some of the most sophisticated city planning of the ancient world.</p>
-          <p>Grid-based street layouts, covered drainage, public granaries, and tiered social zones were all governed by Vastu principles applied at urban scale.</p>
-        </div>
-        <div>
-          <!-- IMAGE PLACEHOLDER: Mohenjo-Daro or ancient city layout -->
-          <div class="img-placeholder h-360">
-            <div class="corner tl"></div><div class="corner tr"></div>
-            <div class="corner bl"></div><div class="corner br"></div>
-            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="5" y="5" width="40" height="40" stroke="#C5933A" stroke-width="1"/>
-              <line x1="5" y1="18" x2="45" y2="18" stroke="#C5933A" stroke-width="0.7" opacity="0.5"/>
-              <line x1="5" y1="32" x2="45" y2="32" stroke="#C5933A" stroke-width="0.7" opacity="0.5"/>
-              <line x1="18" y1="5" x2="18" y2="45" stroke="#C5933A" stroke-width="0.7" opacity="0.5"/>
-              <line x1="32" y1="5" x2="32" y2="45" stroke="#C5933A" stroke-width="0.7" opacity="0.5"/>
-              <rect x="20" y="20" width="10" height="10" fill="rgba(200,84,10,0.15)" stroke="#C5933A" stroke-width="0.8"/>
-            </svg>
-            <div class="img-placeholder-label">Nagara Rachana — Ancient Urban Grid Plan</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ELEMENTS -->
-<section class="elements-section" id="elements">
-  <div class="container-wide">
-    <div class="section-eyebrow">Key Architectural Elements</div>
-    <h2 class="section-heading">The Language of Sacred Form</h2>
-
-    <div class="two-col reveal" style="margin-top: 40px; margin-bottom: 60px;">
-      <div>
-        <!-- IMAGE PLACEHOLDER: Temple pillar / stambha detail -->
-        <div class="img-placeholder h-320">
-          <div class="corner tl"></div><div class="corner tr"></div>
-          <div class="corner bl"></div><div class="corner br"></div>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="20" y="4" width="8" height="40" stroke="#C5933A" stroke-width="1"/>
-            <rect x="16" y="4" width="16" height="5" stroke="#C5933A" stroke-width="0.8"/>
-            <rect x="16" y="39" width="16" height="5" stroke="#C5933A" stroke-width="0.8"/>
-            <line x1="20" y1="14" x2="28" y2="14" stroke="#C5933A" stroke-width="0.6" opacity="0.5"/>
-            <line x1="20" y1="20" x2="28" y2="20" stroke="#C5933A" stroke-width="0.6" opacity="0.5"/>
-            <line x1="20" y1="26" x2="28" y2="26" stroke="#C5933A" stroke-width="0.6" opacity="0.5"/>
-            <line x1="20" y1="32" x2="28" y2="32" stroke="#C5933A" stroke-width="0.6" opacity="0.5"/>
-          </svg>
-          <div class="img-placeholder-label">Stambha — Sacred Pillar Detail & Carving</div>
-        </div>
-      </div>
-      <div>
-        <!-- IMAGE PLACEHOLDER: Yantra / geometric diagram -->
-        <div class="img-placeholder h-320">
-          <div class="corner tl"></div><div class="corner tr"></div>
-          <div class="corner bl"></div><div class="corner br"></div>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="24" r="20" stroke="#C5933A" stroke-width="1"/>
-            <polygon points="24,6 40,36 8,36" stroke="#C5933A" stroke-width="0.8" fill="none"/>
-            <polygon points="24,42 8,12 40,12" stroke="#C5933A" stroke-width="0.8" fill="none"/>
-            <circle cx="24" cy="24" r="6" stroke="#C5933A" stroke-width="0.8"/>
-          </svg>
-          <div class="img-placeholder-label">Yantramātṛkā — Sacred Geometric Instrument</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="elements-grid">
-      <div class="element-item reveal">
-        <span class="element-icon">🏛</span>
-        <div class="element-title">Shikhara & Vimana</div>
-        <span class="element-skt">शिखर & विमान</span>
-        <p>The towering spires above the sanctum, representing the soul's aspiration toward the divine — architectural mountains of stone echoing Mount Meru.</p>
-      </div>
-      <div class="element-item reveal reveal-delay-1">
-        <span class="element-icon">🪨</span>
-        <div class="element-title">Stambha</div>
-        <span class="element-skt">स्तम्भ</span>
-        <p>Structural and decorative pillars that created rhythmic spaces for worship, each carved with narrative friezes and divine imagery serving both function and scripture.</p>
-      </div>
-      <div class="element-item reveal reveal-delay-2">
-        <span class="element-icon">⚙️</span>
-        <div class="element-title">Yantramātṛkā</div>
-        <span class="element-skt">यन्त्रमातृका</span>
-        <p>The Art of Invention of Machines, including Udakayantra (water mechanisms) for irrigation or moats, and specialized instruments for precise architectural measurement.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- STHAPATI -->
-<section class="sthapati-section" id="sthapati">
-  <div class="container-wide">
-    <div class="two-col reveal">
-      <div>
-        <div class="section-eyebrow">The Master Builders</div>
-        <h2 class="section-heading">The Sthapati & Mastery of Materials</h2>
-        <p>Construction was carried out by the <strong>Sthapati</strong> — Master Architect — and specialized guilds like the <em>Takshaka</em> (stone carvers or carpenters). These were not mere laborers but initiated scholars, equally versed in sacred scripture and material science.</p>
-        <p>They commanded multiple <em>Kalas</em> — arts — in their simultaneous practice, weaving metallurgy, stone-carving, and clay-work into a single unified vision of sacred space.</p>
-
-        <ul class="materials-list">
-          <li>
-            <div class="mat-bullet">Fe</div>
-            <div>
-              <div class="mat-title">Lohakriyā & Dhātuvādaḥ</div>
-              <span class="mat-skt">लोहक्रिया & धातुवादः</span>
-              <p class="mat-desc">Working with metals and metallurgy to create structural reinforcements and ritualistic bronze objects — bells, lamps, and divine icons that animated the sacred space.</p>
-            </div>
-          </li>
-          <li>
-            <div class="mat-bullet">⛏</div>
-            <div>
-              <div class="mat-title">Aśmakriyā</div>
-              <span class="mat-skt">अश्मक्रिया</span>
-              <p class="mat-desc">The meticulous art of stone sculpting — chiseling divine narrative onto granite and sandstone with instruments guided by sacred proportion and devoted intention.</p>
-            </div>
-          </li>
-          <li>
-            <div class="mat-bullet">🏺</div>
-            <div>
-              <div class="mat-title">Mrtkriyā</div>
-              <span class="mat-skt">मृत्क्रिया</span>
-              <p class="mat-desc">The use of clay, which revolutionized construction through the invention of clay tiles and fired bricks — used for buildings, dams, and drainage systems of extraordinary sophistication.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <!-- IMAGE PLACEHOLDER: Stone carver / ancient craftsman -->
-        <div class="img-placeholder h-280" style="margin-bottom: 24px;">
-          <div class="corner tl"></div><div class="corner tr"></div>
-          <div class="corner bl"></div><div class="corner br"></div>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="24" cy="14" r="8" stroke="#C5933A" stroke-width="1"/>
-            <path d="M12 44v-6a12 12 0 0124 0v6" stroke="#C5933A" stroke-width="1"/>
-            <path d="M16 34l-6 8M32 34l6 8" stroke="#C5933A" stroke-width="0.8" opacity="0.5"/>
-          </svg>
-          <div class="img-placeholder-label">Sthapati — The Master Architect at Work</div>
-        </div>
-        <!-- IMAGE PLACEHOLDER: Bronze temple artifacts / tools -->
-        <div class="img-placeholder h-280">
-          <div class="corner tl"></div><div class="corner tr"></div>
-          <div class="corner bl"></div><div class="corner br"></div>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M24 6v36M6 24h36" stroke="#C5933A" stroke-width="1" opacity="0.4"/>
-            <circle cx="24" cy="24" r="10" stroke="#C5933A" stroke-width="1"/>
-            <circle cx="24" cy="24" r="4" stroke="#C5933A" stroke-width="0.8" fill="rgba(200,84,10,0.12)"/>
-          </svg>
-          <div class="img-placeholder-label">Lohakriyā — Bronze Ritual Objects & Tools</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ENDURING VALUES -->
-<section style="background: linear-gradient(180deg, #0e0703 0%, #1a0c04 100%); padding: 90px 20px;">
-  <div class="container">
-    <div style="text-align:center;" class="reveal">
-      <div class="section-eyebrow" style="justify-content:center;">Enduring Legacy</div>
-      <h2 class="section-heading" style="text-align:center;">The Teaching of Samanvaya</h2>
-    </div>
-
-    <div class="two-col reveal" style="margin-top: 50px;">
-      <div>
-        <!-- IMAGE PLACEHOLDER: Contemporary Vastu-inspired architecture -->
-        <div class="img-placeholder h-360">
-          <div class="corner tl"></div><div class="corner tr"></div>
-          <div class="corner bl"></div><div class="corner br"></div>
-          <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="25" cy="25" r="20" stroke="#C5933A" stroke-width="1"/>
-            <path d="M25 5v40M5 25h40" stroke="#C5933A" stroke-width="0.8" opacity="0.3"/>
-            <circle cx="25" cy="25" r="8" stroke="#C5933A" stroke-width="0.8"/>
-            <g transform="translate(25,25)">
-              <g transform="rotate(0)"><line x1="0" y1="-14" x2="0" y2="-10" stroke="#C5933A" stroke-width="0.8"/></g>
-              <g transform="rotate(45)"><line x1="0" y1="-14" x2="0" y2="-10" stroke="#C5933A" stroke-width="0.8"/></g>
-              <g transform="rotate(90)"><line x1="0" y1="-14" x2="0" y2="-10" stroke="#C5933A" stroke-width="0.8"/></g>
-              <g transform="rotate(135)"><line x1="0" y1="-14" x2="0" y2="-10" stroke="#C5933A" stroke-width="0.8"/></g>
-              <g transform="rotate(180)"><line x1="0" y1="-14" x2="0" y2="-10" stroke="#C5933A" stroke-width="0.8"/></g>
-              <g transform="rotate(225)"><line x1="0" y1="-14" x2="0" y2="-10" stroke="#C5933A" stroke-width="0.8"/></g>
-              <g transform="rotate(270)"><line x1="0" y1="-14" x2="0" y2="-10" stroke="#C5933A" stroke-width="0.8"/></g>
-              <g transform="rotate(315)"><line x1="0" y1="-14" x2="0" y2="-10" stroke="#C5933A" stroke-width="0.8"/></g>
-            </g>
-          </svg>
-          <div class="img-placeholder-label">Samanvaya — Cosmic Harmony in Modern Practice</div>
-        </div>
-      </div>
-      <div>
-        <p class="drop-cap">Vastuvidyā remains relevant today as a testament to India's quest for <strong>Samanvaya</strong> — harmony. It teaches that architecture is not merely a technical activity but a righteous <em>(Dharma)</em> and purposeful design that serves society while reflecting cosmic order.</p>
-        <p>The five elements, the sacred grid, the directional deities, the master craftsmen — all converge in a single truth: that every structure built by human hands is a participation in the ongoing creation of the universe, a collaboration between the mortal architect and the immortal cosmos.</p>
-        <p>In the age of glass and steel, Vastuvidyā endures as a reminder that the deepest human spaces are those built not merely for shelter, but for the <span class="highlight">soul's flourishing</span>.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<div class="border-band"></div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-mandala">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#C5933A" stroke-width="0.8">
-      <circle cx="50" cy="50" r="45"/>
-      <circle cx="50" cy="50" r="35"/>
-      <circle cx="50" cy="50" r="20"/>
-      <circle cx="50" cy="50" r="8"/>
-      <g transform="translate(50,50)">
-        <g transform="rotate(0)"><ellipse cx="0" cy="-40" rx="4" ry="8"/></g>
-        <g transform="rotate(45)"><ellipse cx="0" cy="-40" rx="4" ry="8"/></g>
-        <g transform="rotate(90)"><ellipse cx="0" cy="-40" rx="4" ry="8"/></g>
-        <g transform="rotate(135)"><ellipse cx="0" cy="-40" rx="4" ry="8"/></g>
-        <g transform="rotate(180)"><ellipse cx="0" cy="-40" rx="4" ry="8"/></g>
-        <g transform="rotate(225)"><ellipse cx="0" cy="-40" rx="4" ry="8"/></g>
-        <g transform="rotate(270)"><ellipse cx="0" cy="-40" rx="4" ry="8"/></g>
-        <g transform="rotate(315)"><ellipse cx="0" cy="-40" rx="4" ry="8"/></g>
-      </g>
-    </svg>
-  </div>
-  <div class="footer-title">Vastuvidyā</div>
-  <p class="footer-sub">वास्तुविद्या — The Sacred Architecture of Ancient India</p>
-  <nav class="footer-links">
-    <a href="#origins">Origins</a>
-    <a href="#principles">Principles</a>
-    <a href="#structures">Structures</a>
-    <a href="#elements">Elements</a>
-    <a href="#sthapati">Sthapati</a>
-  </nav>
-  <p class="footer-copy">Part of the Chatushashti Kalas — The 64 Arts of Ancient India</p>
-</footer>
-
-<script>
-  // Tab switching
-  function switchTab(btn, panelId) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById(panelId).classList.add('active');
-  }
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vastuvidyā — The Sacred Architecture of Ancient India</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+Devanagari:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --saffron: #c8540a;
+        --deep-saffron: #a03e00;
+        --gold: #c5933a;
+        --gold-light: #e8c06a;
+        --ivory: #f5edd8;
+        --cream: #faf4e6;
+        --dark-brown: #2a1a08;
+        --mid-brown: #4a2e12;
+        --warm-black: #1a0e04;
+        --terracotta: #b85c38;
+        --deep-red: #7a1c10;
+        --accent-teal: #2e6e6a;
+        --stone: #8c7355;
       }
-    });
-  }, { threshold: 0.12 });
-  reveals.forEach(r => observer.observe(r));
-</script>
-</body>
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--warm-black);
+        color: var(--ivory);
+        font-family: "Crimson Pro", Georgia, serif;
+        font-size: 18px;
+        line-height: 1.75;
+        overflow-x: hidden;
+      }
+
+      /* ── TEXTURE OVERLAY ── */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.5;
+      }
+
+      /* ── DECORATIVE SVG BORDERS ── */
+      .border-top-deco {
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+      }
+
+      /* ── MANDALA HERO ── */
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 80px 20px 60px;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 50% 30%,
+            rgba(200, 84, 10, 0.18) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 60% 40% at 50% 80%,
+            rgba(197, 147, 58, 0.1) 0%,
+            transparent 60%
+          ),
+          linear-gradient(180deg, #120800 0%, #1e0f04 50%, #120800 100%);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 40px,
+            rgba(197, 147, 58, 0.03) 40px,
+            rgba(197, 147, 58, 0.03) 41px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 40px,
+            rgba(197, 147, 58, 0.03) 40px,
+            rgba(197, 147, 58, 0.03) 41px
+          );
+        pointer-events: none;
+      }
+
+      .mandala-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(700px, 90vw);
+        height: min(700px, 90vw);
+        opacity: 0.12;
+        animation: rotate-slow 80s linear infinite;
+      }
+
+      @keyframes rotate-slow {
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      .mandala-inner {
+        position: absolute;
+        inset: 0;
+        animation: rotate-slow 50s linear infinite reverse;
+        opacity: 0.7;
+      }
+
+      .hero-kala-tag {
+        font-family: "Noto Serif Devanagari", serif;
+        font-size: 13px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--gold-light);
+        opacity: 0.85;
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-kala-tag::before,
+      .hero-kala-tag::after {
+        content: "❖";
+        margin: 0 12px;
+        color: var(--saffron);
+        font-size: 10px;
+      }
+
+      .hero-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(2.8rem, 7vw, 6rem);
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: 2px;
+        color: var(--gold-light);
+        text-shadow:
+          0 0 60px rgba(197, 147, 58, 0.6),
+          0 0 120px rgba(200, 84, 10, 0.3),
+          2px 2px 0px rgba(42, 26, 8, 0.8);
+        position: relative;
+        z-index: 1;
+        animation: fade-up 1.2s ease both;
+      }
+
+      .hero-title span {
+        display: block;
+        font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+        font-family: "Noto Serif Devanagari", serif;
+        font-weight: 300;
+        letter-spacing: 8px;
+        color: var(--saffron);
+        margin-bottom: 10px;
+        text-shadow: 0 0 30px rgba(200, 84, 10, 0.5);
+      }
+
+      .hero-subtitle {
+        font-family: "Crimson Pro", serif;
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        font-style: italic;
+        color: var(--ivory);
+        opacity: 0.75;
+        max-width: 600px;
+        margin: 24px auto 0;
+        position: relative;
+        z-index: 1;
+        animation: fade-up 1.4s ease both;
+      }
+
+      .hero-divider {
+        margin: 36px auto;
+        width: 200px;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          var(--saffron),
+          var(--gold),
+          transparent
+        );
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-divider::before {
+        content: "✦";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--warm-black);
+        padding: 0 10px;
+        color: var(--gold);
+        font-size: 12px;
+      }
+
+      @keyframes fade-up {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── BORDER PATTERN ── */
+      .border-band {
+        width: 100%;
+        height: 24px;
+        background: repeating-linear-gradient(
+          90deg,
+          var(--saffron) 0px,
+          var(--saffron) 8px,
+          var(--gold) 8px,
+          var(--gold) 16px,
+          var(--deep-red) 16px,
+          var(--deep-red) 24px,
+          var(--gold) 24px,
+          var(--gold) 32px
+        );
+        opacity: 0.7;
+      }
+
+      .border-band-thin {
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(
+          90deg,
+          var(--deep-red),
+          var(--saffron),
+          var(--gold),
+          var(--saffron),
+          var(--deep-red)
+        );
+        opacity: 0.6;
+      }
+
+      /* ── MAIN CONTENT ── */
+      main {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ── INTRO SECTION ── */
+      .intro-section {
+        background: linear-gradient(180deg, #1e0f04 0%, #231208 100%);
+        padding: 80px 20px;
+        position: relative;
+      }
+
+      .intro-section::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .container-wide {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 30px;
+      }
+
+      .section-eyebrow {
+        font-family: "Noto Serif Devanagari", serif;
+        font-size: 11px;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: var(--saffron);
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .section-eyebrow::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, var(--saffron), transparent);
+        opacity: 0.4;
+      }
+
+      .section-heading {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(1.5rem, 4vw, 2.6rem);
+        color: var(--gold-light);
+        line-height: 1.25;
+        margin-bottom: 32px;
+        text-shadow: 0 2px 20px rgba(197, 147, 58, 0.3);
+      }
+
+      .drop-cap::first-letter {
+        float: left;
+        font-family: "Cinzel Decorative", serif;
+        font-size: 5em;
+        line-height: 0.75;
+        padding: 0.1em 0.12em 0 0;
+        color: var(--saffron);
+        text-shadow:
+          2px 2px 0 var(--deep-red),
+          0 0 30px rgba(200, 84, 10, 0.5);
+      }
+
+      p {
+        margin-bottom: 1.2em;
+        color: #e8dcc8;
+      }
+
+      /* ── IMAGE PLACEHOLDER ── */
+      .img-placeholder {
+        width: 100%;
+        background: linear-gradient(
+          135deg,
+          #2a1508 0%,
+          #1a0d04 50%,
+          #2e1a0a 100%
+        );
+        border: 1px solid rgba(197, 147, 58, 0.25);
+        border-radius: 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        color: var(--gold);
+        font-family: "Cinzel Decorative", serif;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        text-align: center;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .img-placeholder::before {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        border: 1px dashed rgba(197, 147, 58, 0.2);
+        pointer-events: none;
+      }
+
+      .img-placeholder .corner {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-color: var(--gold);
+        border-style: solid;
+        opacity: 0.5;
+      }
+      .img-placeholder .corner.tl {
+        top: 4px;
+        left: 4px;
+        border-width: 2px 0 0 2px;
+      }
+      .img-placeholder .corner.tr {
+        top: 4px;
+        right: 4px;
+        border-width: 2px 2px 0 0;
+      }
+      .img-placeholder .corner.bl {
+        bottom: 4px;
+        left: 4px;
+        border-width: 0 0 2px 2px;
+      }
+      .img-placeholder .corner.br {
+        bottom: 4px;
+        right: 4px;
+        border-width: 0 2px 2px 0;
+      }
+
+      .img-placeholder svg {
+        opacity: 0.3;
+      }
+
+      .img-placeholder-label {
+        color: var(--gold);
+        opacity: 0.6;
+        font-size: 0.7rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-family: "Crimson Pro", serif;
+        font-style: italic;
+      }
+
+      .img-frame {
+        width: 100%;
+        border: 1px solid rgba(197, 147, 58, 0.25);
+        border-radius: 2px;
+        overflow: hidden;
+        background: #120a04;
+        position: relative;
+      }
+
+      .img-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .img-frame .img-caption {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 14px 16px;
+        background: rgba(26, 13, 4, 0.76);
+        color: var(--gold);
+        font-family: "Crimson Pro", serif;
+        font-size: 0.78rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      /* ── GRID LAYOUTS ── */
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: start;
+        margin: 50px 0;
+      }
+
+      .two-col-rev {
+        direction: rtl;
+      }
+      .two-col-rev > * {
+        direction: ltr;
+      }
+
+      @media (max-width: 720px) {
+        .two-col {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+      }
+
+      /* ── PRINCIPLES SECTION ── */
+      .principles-section {
+        background:
+          radial-gradient(
+            ellipse 100% 50% at 50% 50%,
+            rgba(200, 84, 10, 0.08) 0%,
+            transparent 70%
+          ),
+          linear-gradient(180deg, #231208 0%, #1a0c04 100%);
+        padding: 90px 20px;
+        position: relative;
+      }
+
+      .principles-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      @media (max-width: 900px) {
+        .principles-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 560px) {
+        .principles-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .principle-card {
+        background: linear-gradient(
+          145deg,
+          rgba(42, 26, 8, 0.9),
+          rgba(26, 14, 4, 0.95)
+        );
+        border: 1px solid rgba(197, 147, 58, 0.18);
+        padding: 32px 28px;
+        position: relative;
+        transition:
+          transform 0.3s ease,
+          border-color 0.3s ease;
+      }
+
+      .principle-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(197, 147, 58, 0.4);
+      }
+
+      .principle-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--saffron), var(--gold));
+      }
+
+      .principle-num {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 2.5rem;
+        color: var(--saffron);
+        opacity: 0.25;
+        line-height: 1;
+        margin-bottom: 10px;
+      }
+
+      .principle-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 0.9rem;
+        color: var(--gold-light);
+        margin-bottom: 14px;
+        letter-spacing: 1px;
+      }
+
+      .principle-subtitle {
+        font-family: "Noto Serif Devanagari", serif;
+        font-size: 0.75rem;
+        color: var(--saffron);
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+        opacity: 0.8;
+      }
+
+      .principle-card p {
+        font-size: 0.92rem;
+        line-height: 1.65;
+        color: #c8baa8;
+        margin: 0;
+      }
+
+      /* ── QUOTE BAND ── */
+      .quote-band {
+        background: linear-gradient(
+          90deg,
+          var(--deep-red) 0%,
+          #5a1208 50%,
+          var(--deep-red) 100%
+        );
+        padding: 50px 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quote-band::before {
+        content: "❝";
+        position: absolute;
+        font-size: 200px;
+        color: rgba(255, 255, 255, 0.04);
+        font-family: Georgia, serif;
+        line-height: 1;
+        top: -20px;
+        left: 30px;
+      }
+
+      .quote-band blockquote {
+        font-family: "Cinzel Decorative", serif;
+        font-size: clamp(1rem, 2.5vw, 1.4rem);
+        color: var(--gold-light);
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
+      }
+
+      .quote-band cite {
+        display: block;
+        margin-top: 16px;
+        font-family: "Crimson Pro", serif;
+        font-style: italic;
+        font-size: 0.95rem;
+        color: var(--ivory);
+        opacity: 0.65;
+        letter-spacing: 2px;
+      }
+
+      /* ── STRUCTURES SECTION ── */
+      .structures-section {
+        padding: 90px 20px;
+        background: linear-gradient(180deg, #1a0c04 0%, #231208 100%);
+      }
+
+      .structures-tabs {
+        display: flex;
+        gap: 0;
+        border-bottom: 1px solid rgba(197, 147, 58, 0.2);
+        margin-bottom: 50px;
+        overflow-x: auto;
+      }
+
+      .tab-btn {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 0.7rem;
+        letter-spacing: 1.5px;
+        padding: 16px 28px;
+        background: transparent;
+        border: none;
+        color: var(--stone);
+        cursor: pointer;
+        position: relative;
+        white-space: nowrap;
+        transition: color 0.3s;
+      }
+
+      .tab-btn.active {
+        color: var(--gold-light);
+      }
+
+      .tab-btn.active::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--saffron), var(--gold));
+      }
+
+      .tab-btn:hover {
+        color: var(--ivory);
+      }
+
+      .tab-panel {
+        display: none;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+
+      /* ── ELEMENTS GRID ── */
+      .elements-section {
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 30% 50%,
+            rgba(46, 110, 106, 0.06) 0%,
+            transparent 60%
+          ),
+          linear-gradient(180deg, #231208 0%, #1a0c04 100%);
+        padding: 90px 20px;
+      }
+
+      .elements-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 24px;
+        margin-top: 50px;
+      }
+
+      .element-item {
+        padding: 30px;
+        border-left: 2px solid var(--saffron);
+        background: rgba(42, 26, 8, 0.5);
+        position: relative;
+      }
+
+      .element-item::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, var(--saffron), transparent);
+        opacity: 0.2;
+      }
+
+      .element-icon {
+        font-size: 2rem;
+        margin-bottom: 14px;
+        display: block;
+      }
+
+      .element-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 0.85rem;
+        color: var(--gold-light);
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+      }
+
+      .element-skt {
+        font-family: "Noto Serif Devanagari", serif;
+        font-size: 0.7rem;
+        color: var(--saffron);
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+        display: block;
+        opacity: 0.8;
+      }
+
+      .element-item p {
+        font-size: 0.9rem;
+        color: #b8aa98;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      /* ── STHAPATI SECTION ── */
+      .sthapati-section {
+        padding: 90px 20px;
+        background: linear-gradient(180deg, #1a0c04 0%, #0e0703 100%);
+        position: relative;
+      }
+
+      .sthapati-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: repeating-linear-gradient(
+          45deg,
+          transparent 0px,
+          transparent 20px,
+          rgba(197, 147, 58, 0.015) 20px,
+          rgba(197, 147, 58, 0.015) 21px
+        );
+      }
+
+      .materials-list {
+        list-style: none;
+        margin-top: 30px;
+      }
+
+      .materials-list li {
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(197, 147, 58, 0.1);
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        position: relative;
+      }
+
+      .mat-bullet {
+        min-width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, var(--saffron), var(--deep-red));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Cinzel Decorative", serif;
+        font-size: 0.75rem;
+        color: var(--ivory);
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      .mat-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 0.85rem;
+        color: var(--gold-light);
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+      }
+
+      .mat-skt {
+        font-family: "Noto Serif Devanagari", serif;
+        font-size: 0.7rem;
+        color: var(--saffron);
+        opacity: 0.8;
+        display: block;
+        margin-bottom: 8px;
+        letter-spacing: 2px;
+      }
+
+      .mat-desc {
+        font-size: 0.9rem;
+        color: #b0a290;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--warm-black);
+        padding: 60px 20px 40px;
+        text-align: center;
+        border-top: 1px solid rgba(197, 147, 58, 0.15);
+      }
+
+      .footer-mandala {
+        width: 100px;
+        margin: 0 auto 30px;
+        opacity: 0.5;
+        animation: rotate-slow 60s linear infinite;
+      }
+
+      .footer-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.1rem;
+        color: var(--gold);
+        letter-spacing: 3px;
+        margin-bottom: 12px;
+      }
+
+      .footer-sub {
+        font-family: "Crimson Pro", serif;
+        font-style: italic;
+        color: var(--stone);
+        font-size: 0.95rem;
+        margin-bottom: 30px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+      }
+
+      .footer-links a {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+        color: var(--stone);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: var(--gold-light);
+      }
+
+      .footer-copy {
+        font-size: 0.8rem;
+        color: var(--stone);
+        opacity: 0.5;
+        letter-spacing: 1px;
+      }
+
+      /* ── ORNAMENTAL DIVIDER ── */
+      .ornament {
+        text-align: center;
+        color: var(--gold);
+        font-size: 1rem;
+        letter-spacing: 16px;
+        opacity: 0.35;
+        margin: 50px 0;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        padding: 16px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(10, 5, 2, 0.9);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(197, 147, 58, 0.15);
+        transition: background 0.3s;
+      }
+
+      .nav-logo {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 0.9rem;
+        color: var(--gold-light);
+        letter-spacing: 2px;
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-family: "Crimson Pro", serif;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--stone);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--gold-light);
+      }
+
+      @media (max-width: 680px) {
+        .nav-links {
+          display: none;
+        }
+        nav {
+          padding: 16px 24px;
+        }
+      }
+
+      /* ── SCROLL REVEAL ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      .reveal-delay-1 {
+        transition-delay: 0.1s;
+      }
+      .reveal-delay-2 {
+        transition-delay: 0.2s;
+      }
+      .reveal-delay-3 {
+        transition-delay: 0.3s;
+      }
+
+      /* ── INLINE HIGHLIGHT ── */
+      .highlight {
+        color: var(--gold-light);
+        font-style: italic;
+      }
+
+      strong {
+        color: var(--gold-light);
+        font-weight: 600;
+      }
+
+      /* ── VASTU MANDALA DIAGRAM ── */
+      .mandala-diagram-wrap {
+        max-width: 440px;
+        margin: 0 auto;
+      }
+
+      /* image placeholder heights */
+      .h-200 {
+        height: 200px;
+      }
+      .h-280 {
+        height: 280px;
+      }
+      .h-360 {
+        height: 360px;
+      }
+      .h-320 {
+        height: 320px;
+      }
+      .h-400 {
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="#" class="nav-logo">Vastuvidyā</a>
+      <ul class="nav-links">
+        <li><a href="#origins">Origins</a></li>
+        <li><a href="#principles">Principles</a></li>
+        <li><a href="#structures">Structures</a></li>
+        <li><a href="#elements">Elements</a></li>
+        <li><a href="#sthapati">Sthapati</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+      <!-- Mandala BG SVG -->
+      <div class="mandala-container">
+        <svg
+          viewBox="0 0 600 600"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="#C5933A"
+          stroke-width="0.8"
+        >
+          <circle cx="300" cy="300" r="280" />
+          <circle cx="300" cy="300" r="240" />
+          <circle cx="300" cy="300" r="200" />
+          <circle cx="300" cy="300" r="160" />
+          <circle cx="300" cy="300" r="120" />
+          <circle cx="300" cy="300" r="80" />
+          <circle cx="300" cy="300" r="40" />
+          <!-- 8 petals outer -->
+          <g transform="translate(300,300)">
+            <g transform="rotate(0)">
+              <ellipse cx="0" cy="-220" rx="18" ry="40" />
+            </g>
+            <g transform="rotate(45)">
+              <ellipse cx="0" cy="-220" rx="18" ry="40" />
+            </g>
+            <g transform="rotate(90)">
+              <ellipse cx="0" cy="-220" rx="18" ry="40" />
+            </g>
+            <g transform="rotate(135)">
+              <ellipse cx="0" cy="-220" rx="18" ry="40" />
+            </g>
+            <g transform="rotate(180)">
+              <ellipse cx="0" cy="-220" rx="18" ry="40" />
+            </g>
+            <g transform="rotate(225)">
+              <ellipse cx="0" cy="-220" rx="18" ry="40" />
+            </g>
+            <g transform="rotate(270)">
+              <ellipse cx="0" cy="-220" rx="18" ry="40" />
+            </g>
+            <g transform="rotate(315)">
+              <ellipse cx="0" cy="-220" rx="18" ry="40" />
+            </g>
+          </g>
+          <!-- 16 petals mid -->
+          <g transform="translate(300,300)">
+            <g transform="rotate(0)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(22.5)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(45)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(67.5)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(90)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(112.5)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(135)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(157.5)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(180)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(202.5)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(225)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(247.5)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(270)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(292.5)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(315)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+            <g transform="rotate(337.5)">
+              <ellipse cx="0" cy="-170" rx="12" ry="28" />
+            </g>
+          </g>
+          <!-- radial lines -->
+          <g transform="translate(300,300)" stroke-width="0.4" opacity="0.5">
+            <line x1="0" y1="-280" x2="0" y2="280" />
+            <line x1="-280" y1="0" x2="280" y2="0" />
+            <line transform="rotate(45)" x1="0" y1="-280" x2="0" y2="280" />
+            <line transform="rotate(135)" x1="0" y1="-280" x2="0" y2="280" />
+          </g>
+          <!-- star polygon -->
+          <polygon
+            transform="translate(300,300)"
+            points="0,-140 32.7,-100 119.5,-100 51.3,-38.7 78.2,50 0,0 -78.2,50 -51.3,-38.7 -119.5,-100 -32.7,-100"
+            stroke-width="0.6"
+            opacity="0.6"
+          />
+        </svg>
+        <div class="mandala-inner">
+          <svg
+            viewBox="0 0 600 600"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="#C8540A"
+            stroke-width="0.5"
+            opacity="0.8"
+          >
+            <g transform="translate(300,300)">
+              <g transform="rotate(22.5)">
+                <g transform="rotate(0)">
+                  <rect x="-8" y="-125" width="16" height="30" rx="4" />
+                </g>
+                <g transform="rotate(45)">
+                  <rect x="-8" y="-125" width="16" height="30" rx="4" />
+                </g>
+                <g transform="rotate(90)">
+                  <rect x="-8" y="-125" width="16" height="30" rx="4" />
+                </g>
+                <g transform="rotate(135)">
+                  <rect x="-8" y="-125" width="16" height="30" rx="4" />
+                </g>
+                <g transform="rotate(180)">
+                  <rect x="-8" y="-125" width="16" height="30" rx="4" />
+                </g>
+                <g transform="rotate(225)">
+                  <rect x="-8" y="-125" width="16" height="30" rx="4" />
+                </g>
+                <g transform="rotate(270)">
+                  <rect x="-8" y="-125" width="16" height="30" rx="4" />
+                </g>
+                <g transform="rotate(315)">
+                  <rect x="-8" y="-125" width="16" height="30" rx="4" />
+                </g>
+              </g>
+            </g>
+            <rect x="200" y="200" width="200" height="200" stroke-width="0.6" />
+            <rect
+              x="220"
+              y="220"
+              width="160"
+              height="160"
+              stroke-width="0.4"
+              transform="translate(300,300) rotate(45) translate(-300,-300)"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div class="hero-kala-tag">Chatushashti Kalas — The 64 Arts</div>
+      <h1 class="hero-title">
+        <span>वास्तुविद्या</span>
+        Vastuvidyā
+      </h1>
+      <div class="hero-divider"></div>
+      <p class="hero-subtitle">
+        The Sacred Art & Science of Architecture in Ancient India — a profound
+        fusion of mathematical precision, cosmic harmony, and divine purpose.
+      </p>
+    </header>
+
+    <div class="border-band"></div>
+
+    <main>
+      <!-- INTRO / ORIGINS -->
+      <section class="intro-section" id="origins">
+        <div class="container">
+          <div class="section-eyebrow">Origins & Definition</div>
+          <h2 class="section-heading">The Chatushashti Kalas</h2>
+
+          <div class="two-col reveal">
+            <div>
+              <p class="drop-cap">
+                The <strong>Chatushashti Kalas</strong> — the 64 Arts —
+                represent a comprehensive collection of skills and knowledge
+                essential for holistic human development in ancient India.
+                Originating from Vedic texts and first cataloged in the
+                Mahabharata, these arts were later refined in works like
+                Kautilya's <span class="highlight">Arthashastra</span> and the
+                <span class="highlight">Kamasutra</span>.
+              </p>
+              <p>
+                Mastery of these arts allowed an individual to contribute to
+                society while developing intelligence, creativity, and
+                discipline. Among these, <strong>Vastuvidyā</strong> — the Art
+                and Science of Architecture — stands as a profound fusion of
+                mathematical precision, artistic expression, and astrological
+                insights.
+              </p>
+              <p>
+                The term <em>Vastu</em> refers broadly to houses, buildings,
+                grounds, and even infrastructure like bridges and lakes, while
+                later Puranic texts extend it to encompass entire towns,
+                temples, and palaces.
+              </p>
+            </div>
+            <div>
+              <figure class="img-frame h-360">
+                <img
+                  src="vastu-manuscript.jpeg"
+                  alt="Ancient Manuscript — Vedic Text Illustration"
+                />
+                <figcaption class="img-caption">
+                  Ancient Manuscript — Vedic Text Illustration
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="ornament">✦ ✦ ✦ ✦ ✦</div>
+
+          <div class="two-col two-col-rev reveal">
+            <div>
+              <figure class="img-frame h-360">
+                <img
+                  src="matsya-manu.png"
+                  alt="Matsya Avatar — Lord Vishnu Imparting Vastuvidyā to Manu"
+                />
+                <figcaption class="img-caption">
+                  Matsya Avatar — Lord Vishnu Imparting Vastuvidyā to Manu
+                </figcaption>
+              </figure>
+            </div>
+            <div>
+              <div class="section-eyebrow">Divine Genesis</div>
+              <h2 class="section-heading" style="font-size: 1.8rem">
+                Sacred Origins
+              </h2>
+              <p>
+                According to the <span class="highlight">Matsya Purana</span>,
+                Vastuvidyā was imparted by Lord Vishnu in his Matsya avatar to
+                Manu, the first human — establishing architecture as a divine
+                gift entrusted to humanity.
+              </p>
+              <p>
+                The tradition is preserved in major texts such as the
+                <strong>Manasara</strong>, which provides detailed guidance on
+                site selection, strategic placement of features like doors and
+                altars, and construction techniques to promote the well-being of
+                occupants.
+              </p>
+              <p>
+                This sacred lineage of knowledge passed from divine origin
+                through generations of <em>Sthapatis</em> — master architects —
+                who were regarded not merely as craftsmen, but as intermediaries
+                between the cosmic order and the material world.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="border-band-thin"></div>
+
+      <!-- QUOTE BAND -->
+      <div class="quote-band">
+        <blockquote>
+          "Architecture is not merely a technical activity but a righteous and
+          purposeful design that serves society while reflecting cosmic order."
+          <cite>— Vastuvidyā, The Samanvaya Tradition</cite>
+        </blockquote>
+      </div>
+
+      <div class="border-band-thin"></div>
+
+      <!-- PRINCIPLES -->
+      <section class="principles-section" id="principles">
+        <div class="container-wide">
+          <div style="text-align: center; margin-bottom: 10px">
+            <div class="section-eyebrow" style="justify-content: center">
+              Core Principles
+            </div>
+            <h2 class="section-heading" style="text-align: center">
+              Harmonizing with the Cosmos
+            </h2>
+            <p
+              style="
+                max-width: 600px;
+                margin: 0 auto;
+                color: #b8aa98;
+                font-style: italic;
+              "
+            >
+              At its heart, Vastuvidyā is the science of achieving harmony
+              between human existence and the larger cosmos.
+            </p>
+          </div>
+
+          <!-- Vastu Purusha Mandala Image -->
+          <div
+            class="mandala-diagram-wrap reveal"
+            style="margin-top: 50px; margin-bottom: 50px"
+          >
+            <figure class="img-frame h-400">
+              <img
+                src="vastu-purusha-mandala.png"
+                alt="Vastu Purusha Mandala — The Sacred Cosmic Grid"
+              />
+              <figcaption class="img-caption">
+                Vastu Purusha Mandala — The Sacred Cosmic Grid
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="principles-grid">
+            <div class="principle-card reveal">
+              <div class="principle-num">01</div>
+              <div class="principle-subtitle">पञ्चमहाभूत</div>
+              <div class="principle-title">Panchamahabhuta</div>
+              <p>
+                Every structure is designed to balance the five essential
+                elements: <strong>Earth</strong> (Prithvi),
+                <strong>Water</strong> (Jala), <strong>Air</strong> (Vayu),
+                <strong>Fire</strong> (Agni), and
+                <strong>Space</strong> (Akasha). This balance aligns the
+                building with nature to optimize the health of its residents.
+              </p>
+            </div>
+            <div class="principle-card reveal reveal-delay-1">
+              <div class="principle-num">02</div>
+              <div class="principle-subtitle">वास्तुपुरुषमण्डल</div>
+              <div class="principle-title">Vastu Purusha Mandala</div>
+              <p>
+                This fundamental sacred grid maps a cosmic being onto the site.
+                A key rule is the <strong>Brahmasthana</strong> — the central
+                zone of the structure — which is kept open to allow energy and
+                Space (Akasha) to circulate freely.
+              </p>
+            </div>
+            <div class="principle-card reveal reveal-delay-2">
+              <div class="principle-num">03</div>
+              <div class="principle-subtitle">अष्टदिक्पाल</div>
+              <div class="principle-title">Ashtadikpāla</div>
+              <p>
+                Eight directions govern different functions. The
+                <strong>East</strong> is traditionally auspicious for entrances
+                to capture sunrise and vitality, while the
+                <strong>Southeast</strong> is the designated zone for Fire — the
+                domain of kitchens and hearths.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STRUCTURES -->
+      <section class="structures-section" id="structures">
+        <div class="container-wide">
+          <div class="section-eyebrow">Types of Structures</div>
+          <h2 class="section-heading">From Temples to Towns</h2>
+          <p
+            style="
+              max-width: 680px;
+              color: #b8aa98;
+              font-style: italic;
+              margin-bottom: 40px;
+            "
+          >
+            Vastuvidyā was applied across various scales, from individual homes
+            to entire urban landscapes.
+          </p>
+
+          <div class="structures-tabs">
+            <button
+              class="tab-btn active"
+              onclick="switchTab(this, 'tab-devalaya')"
+            >
+              Devalaya
+            </button>
+            <button class="tab-btn" onclick="switchTab(this, 'tab-griha')">
+              Griha
+            </button>
+            <button class="tab-btn" onclick="switchTab(this, 'tab-nagara')">
+              Nagara Rachana
+            </button>
+          </div>
+
+          <!-- DEVALAYA -->
+          <div class="tab-panel active" id="tab-devalaya">
+            <div class="two-col reveal">
+              <div>
+                <div class="section-eyebrow">देवालय</div>
+                <h3 class="section-heading" style="font-size: 1.6rem">
+                  Temple Architecture
+                </h3>
+                <p>
+                  The highest expression of the art, temples utilized intricate
+                  carvings that served both aesthetic and scientific purposes,
+                  such as amplifying sound within the sanctum. Every dimension,
+                  every column, every doorway threshold was governed by sacred
+                  proportion.
+                </p>
+                <p>
+                  The towering <strong>Shikhara</strong> and
+                  <strong>Vimana</strong> spires above the sanctum represent the
+                  soul's aspiration toward the divine — a mountain of stone
+                  reaching heavenward, echoing the sacred peaks of Meru.
+                </p>
+              </div>
+              <div>
+                <figure class="img-frame h-360">
+                  <img
+                    src="devalaya.png"
+                    alt="Devalaya — Temple Shikhara & Sanctum"
+                  />
+                  <figcaption class="img-caption">
+                    Devalaya — Temple Shikhara & Sanctum
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <!-- GRIHA -->
+          <div class="tab-panel" id="tab-griha">
+            <div class="two-col reveal">
+              <div>
+                <figure class="img-frame h-360">
+                  <img
+                    src="griha-vastu.png"
+                    alt="Griha — Traditional Indian Residential Architecture"
+                  />
+                  <figcaption class="img-caption">
+                    Griha — Traditional Indian Residential Architecture
+                  </figcaption>
+                </figure>
+              </div>
+              <div>
+                <div class="section-eyebrow">गृह</div>
+                <h3 class="section-heading" style="font-size: 1.6rem">
+                  Residential Design
+                </h3>
+                <p>
+                  Traditional homes were designed to optimize natural light and
+                  ventilation, emphasizing symmetry and proportion. The central
+                  courtyard — the <em>Brahmasthana</em> of the home — served as
+                  both spiritual center and ventilation engine.
+                </p>
+                <p>
+                  Every doorway faced an auspicious direction; the kitchen was
+                  placed southeast in honor of <strong>Agni</strong>; sleeping
+                  chambers aligned with the earth's magnetic flow. Architecture
+                  was an act of living liturgy.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- NAGARA -->
+          <div class="tab-panel" id="tab-nagara">
+            <div class="two-col reveal">
+              <div>
+                <div class="section-eyebrow">नगर रचना</div>
+                <h3 class="section-heading" style="font-size: 1.6rem">
+                  Town Planning
+                </h3>
+                <p>
+                  The practice extended to advanced urban systems.
+                  Archaeological evidence from sites like
+                  <strong>Mohenjo-Daro</strong> and
+                  <strong>Dwaraka</strong> showcases early expertise in water
+                  systems, storage facilities, and landscaped gardens — some of
+                  the most sophisticated city planning of the ancient world.
+                </p>
+                <p>
+                  Grid-based street layouts, covered drainage, public granaries,
+                  and tiered social zones were all governed by Vastu principles
+                  applied at urban scale.
+                </p>
+              </div>
+              <div>
+                <figure class="img-frame h-360">
+                  <img
+                    src="nagara-vastu.png"
+                    alt="Nagara Rachana — Ancient Urban Grid Plan"
+                  />
+                  <figcaption class="img-caption">
+                    Nagara Rachana — Ancient Urban Grid Plan
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ELEMENTS -->
+      <section class="elements-section" id="elements">
+        <div class="container-wide">
+          <div class="section-eyebrow">Key Architectural Elements</div>
+          <h2 class="section-heading">The Language of Sacred Form</h2>
+
+          <div
+            class="two-col reveal"
+            style="margin-top: 40px; margin-bottom: 60px"
+          >
+            <div>
+              <figure class="img-frame h-320">
+                <img
+                  src="sthamba.png"
+                  alt="Stambha — Sacred Pillar Detail & Carving"
+                />
+                <figcaption class="img-caption">
+                  Stambha — Sacred Pillar Detail & Carving
+                </figcaption>
+              </figure>
+            </div>
+            <div>
+              <figure class="img-frame h-320">
+                <img
+                  src="yantram.png"
+                  alt="Yantramātṛkā — Sacred Geometric Instrument"
+                />
+                <figcaption class="img-caption">
+                  Yantramātṛkā — Sacred Geometric Instrument
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="elements-grid">
+            <div class="element-item reveal">
+              <span class="element-icon">🏛</span>
+              <div class="element-title">Shikhara & Vimana</div>
+              <span class="element-skt">शिखर & विमान</span>
+              <p>
+                The towering spires above the sanctum, representing the soul's
+                aspiration toward the divine — architectural mountains of stone
+                echoing Mount Meru.
+              </p>
+            </div>
+            <div class="element-item reveal reveal-delay-1">
+              <span class="element-icon">🪨</span>
+              <div class="element-title">Stambha</div>
+              <span class="element-skt">स्तम्भ</span>
+              <p>
+                Structural and decorative pillars that created rhythmic spaces
+                for worship, each carved with narrative friezes and divine
+                imagery serving both function and scripture.
+              </p>
+            </div>
+            <div class="element-item reveal reveal-delay-2">
+              <span class="element-icon">⚙️</span>
+              <div class="element-title">Yantramātṛkā</div>
+              <span class="element-skt">यन्त्रमातृका</span>
+              <p>
+                The Art of Invention of Machines, including Udakayantra (water
+                mechanisms) for irrigation or moats, and specialized instruments
+                for precise architectural measurement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STHAPATI -->
+      <section class="sthapati-section" id="sthapati">
+        <div class="container-wide">
+          <div class="two-col reveal">
+            <div>
+              <div class="section-eyebrow">The Master Builders</div>
+              <h2 class="section-heading">
+                The Sthapati & Mastery of Materials
+              </h2>
+              <p>
+                Construction was carried out by the <strong>Sthapati</strong> —
+                Master Architect — and specialized guilds like the
+                <em>Takshaka</em> (stone carvers or carpenters). These were not
+                mere laborers but initiated scholars, equally versed in sacred
+                scripture and material science.
+              </p>
+              <p>
+                They commanded multiple <em>Kalas</em> — arts — in their
+                simultaneous practice, weaving metallurgy, stone-carving, and
+                clay-work into a single unified vision of sacred space.
+              </p>
+
+              <ul class="materials-list">
+                <li>
+                  <div class="mat-bullet">Fe</div>
+                  <div>
+                    <div class="mat-title">Lohakriyā & Dhātuvādaḥ</div>
+                    <span class="mat-skt">लोहक्रिया & धातुवादः</span>
+                    <p class="mat-desc">
+                      Working with metals and metallurgy to create structural
+                      reinforcements and ritualistic bronze objects — bells,
+                      lamps, and divine icons that animated the sacred space.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div class="mat-bullet">⛏</div>
+                  <div>
+                    <div class="mat-title">Aśmakriyā</div>
+                    <span class="mat-skt">अश्मक्रिया</span>
+                    <p class="mat-desc">
+                      The meticulous art of stone sculpting — chiseling divine
+                      narrative onto granite and sandstone with instruments
+                      guided by sacred proportion and devoted intention.
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <div class="mat-bullet">🏺</div>
+                  <div>
+                    <div class="mat-title">Mrtkriyā</div>
+                    <span class="mat-skt">मृत्क्रिया</span>
+                    <p class="mat-desc">
+                      The use of clay, which revolutionized construction through
+                      the invention of clay tiles and fired bricks — used for
+                      buildings, dams, and drainage systems of extraordinary
+                      sophistication.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <figure class="img-frame h-280" style="margin-bottom: 24px">
+                <img
+                  src="sthapathi.png"
+                  alt="Sthapati — The Master Architect at Work"
+                />
+                <figcaption class="img-caption">
+                  Sthapati — The Master Architect at Work
+                </figcaption>
+              </figure>
+              <figure class="img-frame h-280">
+                <img
+                  src="lohakriya.png"
+                  alt="Lohakriyā — Bronze Ritual Objects & Tools"
+                />
+                <figcaption class="img-caption">
+                  Lohakriyā — Bronze Ritual Objects & Tools
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ENDURING VALUES -->
+      <section
+        style="
+          background: linear-gradient(180deg, #0e0703 0%, #1a0c04 100%);
+          padding: 90px 20px;
+        "
+      >
+        <div class="container">
+          <div style="text-align: center" class="reveal">
+            <div class="section-eyebrow" style="justify-content: center">
+              Enduring Legacy
+            </div>
+            <h2 class="section-heading" style="text-align: center">
+              The Teaching of Samanvaya
+            </h2>
+          </div>
+
+          <div class="two-col reveal" style="margin-top: 50px">
+            <div>
+              <figure class="img-frame h-360">
+                <img
+                  src="griha-vastu.png"
+                  alt="Contemporary Vastu-inspired Architecture"
+                />
+                <figcaption class="img-caption">
+                  Contemporary Vastu-inspired Architecture
+                </figcaption>
+              </figure>
+            </div>
+            <div>
+              <p class="drop-cap">
+                Vastuvidyā remains relevant today as a testament to India's
+                quest for <strong>Samanvaya</strong> — harmony. It teaches that
+                architecture is not merely a technical activity but a righteous
+                <em>(Dharma)</em> and purposeful design that serves society
+                while reflecting cosmic order.
+              </p>
+              <p>
+                The five elements, the sacred grid, the directional deities, the
+                master craftsmen — all converge in a single truth: that every
+                structure built by human hands is a participation in the ongoing
+                creation of the universe, a collaboration between the mortal
+                architect and the immortal cosmos.
+              </p>
+              <p>
+                In the age of glass and steel, Vastuvidyā endures as a reminder
+                that the deepest human spaces are those built not merely for
+                shelter, but for the
+                <span class="highlight">soul's flourishing</span>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="border-band"></div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-mandala">
+        <svg
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="#C5933A"
+          stroke-width="0.8"
+        >
+          <circle cx="50" cy="50" r="45" />
+          <circle cx="50" cy="50" r="35" />
+          <circle cx="50" cy="50" r="20" />
+          <circle cx="50" cy="50" r="8" />
+          <g transform="translate(50,50)">
+            <g transform="rotate(0)">
+              <ellipse cx="0" cy="-40" rx="4" ry="8" />
+            </g>
+            <g transform="rotate(45)">
+              <ellipse cx="0" cy="-40" rx="4" ry="8" />
+            </g>
+            <g transform="rotate(90)">
+              <ellipse cx="0" cy="-40" rx="4" ry="8" />
+            </g>
+            <g transform="rotate(135)">
+              <ellipse cx="0" cy="-40" rx="4" ry="8" />
+            </g>
+            <g transform="rotate(180)">
+              <ellipse cx="0" cy="-40" rx="4" ry="8" />
+            </g>
+            <g transform="rotate(225)">
+              <ellipse cx="0" cy="-40" rx="4" ry="8" />
+            </g>
+            <g transform="rotate(270)">
+              <ellipse cx="0" cy="-40" rx="4" ry="8" />
+            </g>
+            <g transform="rotate(315)">
+              <ellipse cx="0" cy="-40" rx="4" ry="8" />
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="footer-title">Vastuvidyā</div>
+      <p class="footer-sub">
+        वास्तुविद्या — The Sacred Architecture of Ancient India
+      </p>
+      <nav class="footer-links">
+        <a href="#origins">Origins</a>
+        <a href="#principles">Principles</a>
+        <a href="#structures">Structures</a>
+        <a href="#elements">Elements</a>
+        <a href="#sthapati">Sthapati</a>
+      </nav>
+      <p class="footer-copy">
+        Part of the Chatushashti Kalas — The 64 Arts of Ancient India
+      </p>
+    </footer>
+
+    <script>
+      // Tab switching
+      function switchTab(btn, panelId) {
+        document
+          .querySelectorAll(".tab-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-panel")
+          .forEach((p) => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById(panelId).classList.add("active");
+      }
+
+      // Scroll reveal
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+      reveals.forEach((r) => observer.observe(r));
+    </script>
+  </body>
 </html>
