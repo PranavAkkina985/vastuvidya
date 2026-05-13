@@ -193,6 +193,36 @@
         animation: fade-up 1.4s ease both;
       }
 
+      .audio-toggle-btn {
+        background: rgba(197, 147, 58, 0.95);
+        color: var(--warm-black);
+        border: 2px solid var(--saffron);
+        padding: 10px 18px;
+        font-family: "Crimson Pro", serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        border-radius: 999px;
+        cursor: pointer;
+        min-width: 140px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.25s ease,
+          background 0.25s ease,
+          box-shadow 0.25s ease;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 999;
+      }
+
+      .audio-toggle-btn:hover {
+        transform: translateY(-2px);
+        background: var(--gold-light);
+        box-shadow: 0 10px 25px rgba(197, 147, 58, 0.25);
+      }
+
       .hero-creators {
         font-family: "Crimson Pro", serif;
         font-size: 0.92rem;
@@ -1025,6 +1055,12 @@
       </ul>
     </nav>
 
+    <!-- BACKGROUND MUSIC -->
+    <audio autoplay loop muted>
+      <source src="media/background-music.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
     <!-- HERO -->
     <header class="hero">
       <!-- Mandala BG SVG -->
@@ -1202,6 +1238,9 @@
         The Sacred Art & Science of Architecture in Ancient India — a profound
         fusion of mathematical precision, cosmic harmony, and divine purpose.
       </p>
+      <button id="audio-toggle-btn" class="audio-toggle-btn">
+        Turn Music On
+      </button>
     </header>
 
     <div class="border-band"></div>
@@ -1242,7 +1281,7 @@
             <div>
               <figure class="img-frame h-360">
                 <img
-                  src="vastu-manuscript.jpeg"
+                  src="images/vastu-manuscript.jpeg"
                   alt="Ancient Manuscript — Vedic Text Illustration"
                 />
                 <figcaption class="img-caption">
@@ -1258,7 +1297,7 @@
             <div>
               <figure class="img-frame h-360">
                 <img
-                  src="matsya-manu.png"
+                  src="images/matsya-manu.png"
                   alt="Matsya Avatar — Lord Vishnu Imparting Vastuvidyā to Manu"
                 />
                 <figcaption class="img-caption">
@@ -1338,7 +1377,7 @@
           >
             <figure class="img-frame h-400">
               <img
-                src="vastu-purusha-mandala.png"
+                src="images/vastu-purusha-mandala.png"
                 alt="Vastu Purusha Mandala — The Sacred Cosmic Grid"
               />
               <figcaption class="img-caption">
@@ -1445,7 +1484,7 @@
               <div>
                 <figure class="img-frame h-360">
                   <img
-                    src="devalaya.png"
+                    src="images/devalaya.png"
                     alt="Devalaya — Temple Shikhara & Sanctum"
                   />
                   <figcaption class="img-caption">
@@ -1462,7 +1501,7 @@
               <div>
                 <figure class="img-frame h-360">
                   <img
-                    src="griha-vastu.png"
+                    src="images/griha-vastu.png"
                     alt="Griha — Traditional Indian Residential Architecture"
                   />
                   <figcaption class="img-caption">
@@ -1516,7 +1555,7 @@
               <div>
                 <figure class="img-frame h-360">
                   <img
-                    src="nagara-vastu.png"
+                    src="images/nagara-vastu.png"
                     alt="Nagara Rachana — Ancient Urban Grid Plan"
                   />
                   <figcaption class="img-caption">
@@ -1542,7 +1581,7 @@
             <div>
               <figure class="img-frame h-320">
                 <img
-                  src="sthamba.png"
+                  src="images/sthamba.png"
                   alt="Stambha — Sacred Pillar Detail & Carving"
                 />
                 <figcaption class="img-caption">
@@ -1553,7 +1592,7 @@
             <div>
               <figure class="img-frame h-320">
                 <img
-                  src="yantram.png"
+                  src="images/yantram.png"
                   alt="Yantramātṛkā — Sacred Geometric Instrument"
                 />
                 <figcaption class="img-caption">
@@ -1663,7 +1702,7 @@
             <div>
               <figure class="img-frame h-280" style="margin-bottom: 24px">
                 <img
-                  src="sthapathi.png"
+                  src="images/sthapathi.png"
                   alt="Sthapati — The Master Architect at Work"
                 />
                 <figcaption class="img-caption">
@@ -1672,7 +1711,7 @@
               </figure>
               <figure class="img-frame h-280">
                 <img
-                  src="lohakriya.png"
+                  src="images/lohakriya.png"
                   alt="Lohakriyā — Bronze Ritual Objects & Tools"
                 />
                 <figcaption class="img-caption">
@@ -1827,6 +1866,47 @@
         { threshold: 0.12 },
       );
       reveals.forEach((r) => observer.observe(r));
+
+      const audio = document.querySelector("audio");
+      const unlockAudio = () => {
+        if (!audio) return;
+        audio.muted = false;
+        audio.play().catch(() => {
+          /* ignore autoplay block until next interaction */
+        });
+        window.removeEventListener("click", unlockAudio);
+        window.removeEventListener("keydown", unlockAudio);
+        window.removeEventListener("touchstart", unlockAudio);
+        window.removeEventListener("pointerdown", unlockAudio);
+      };
+
+      window.addEventListener("click", unlockAudio, { once: true });
+      window.addEventListener("keydown", unlockAudio, { once: true });
+      window.addEventListener("touchstart", unlockAudio, { once: true });
+      window.addEventListener("pointerdown", unlockAudio, { once: true });
+
+      const toggleBtn = document.getElementById("audio-toggle-btn");
+      const toggleAudio = () => {
+        if (!audio) return;
+        const isMuted = audio.muted;
+        if (isMuted) {
+          audio.muted = false;
+          audio.play().catch(() => {
+            /* playback may still be blocked until user interaction */
+          });
+          toggleBtn.textContent = "Turn Music Off";
+        } else {
+          audio.muted = true;
+          toggleBtn.textContent = "Turn Music On";
+        }
+      };
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", (event) => {
+          event.stopPropagation();
+          toggleAudio();
+        });
+      }
     </script>
   </body>
 </html>
